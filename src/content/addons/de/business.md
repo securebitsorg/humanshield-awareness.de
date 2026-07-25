@@ -4,53 +4,38 @@ tagline: Der volle Funktionsumfang – gestaffelt nach Mitarbeiterzahl
 order: 1
 highlighted: true
 groups:
-  - title: Kampagnen
+  - title: Verzeichnisse & Anmeldung
     features:
-      - Wiederkehrende Kampagnen
-      - Mehrstufige Kampagnen
-      - Kampagnen nach Benutzergruppen
-      - Spear Phishing
-      - Whaling
-      - QR-Code-Phishing (Quishing)
-      - Dateibasierte Angriffe
-      - Passwortabfrage
-  - title: Fertige Vorlagen
+      - LDAP-Verzeichnisimport mit LDAPS und StartTLS
+      - Azure AD / Entra ID über Microsoft Graph
+      - SCIM 2.0 legt Benutzer und Gruppen automatisch an
+      - Passkeys als zweiter Faktor (WebAuthn)
+  - title: Vorlagen & Angriffsarten
     features:
-      - Vorlagen für DHL, Amazon, Rechnungen
-      - Vorlagen für Hersteller-Logins
-      - Vorlagen für Banken
-      - Vorlagen für Social Media
-      - Vorlagen für HR-Mails
-      - Vorlagen für PDF-Köder
-      - Vorlagen für QR-Code-Kampagnen
-  - title: Integrationen & Verzeichnis
+      - Vorlagen-Bibliothek (DHL, Amazon, Microsoft 365, Bank, PayPal, LinkedIn …)
+      - Passende Landing Page zu jeder Mail-Vorlage
+      - .eml-Import echter E-Mails samt Anhängen
+      - KI-gestützte Erstellung über OpenAI-kompatible Schnittstelle
+      - Spear Phishing, Whaling und dateibasierte Angriffe
+      - QR-Code-Phishing (Quishing) je Empfänger
+  - title: Kampagnen-Tiefe
     features:
-      - Webhooks
-      - LDAP
-      - Azure AD / Entra ID
-      - Gruppenverwaltung
-      - Mail-Report-Button (Outlook)
-  - title: Reporting
+      - Wiederkehrende Kampagnen in festem Intervall
+      - Mehrstufige Kampagnen mit eigener Vorlage je Stufe
+  - title: Meldeweg
     features:
-      - PDF-Export
-      - Executive Reports
-      - Management Reports
-      - Compliance Reports
-      - Benutzerentwicklung
-      - Abteilungsvergleich
-      - Trendanalysen
-      - Lernfortschritt
-  - title: Compliance
+      - Meldung verdächtiger Mails mit Deduplizierung
+      - Mail-Report-Button für Thunderbird und Outlook
+      - Melden ohne Konto über Melde-Token mit Limits
+  - title: Auswertung & Nachweise
     features:
-      - DSGVO
-      - NIS2
-      - ISO 27001
-      - Awareness-Nachweise
-      - Audit-Berichte
-      - Zertifikate
-      - Schulungsnachweise
+      - Passwortabfrage maskiert und verschlüsselt abgelegt
+      - Executive Report, Trendanalyse und Benutzerentwicklung
+      - PDF-Export mit Logo und Firmendaten
+      - Nachweis-Center (DSGVO, NIS2, ISO 27001, BSI ORP.3, § 38 BSIG)
+      - PDF/A-3b mit eingebetteten Schriften
+      - Webhooks bei jedem Tracking-Ereignis
 ---
 
 Das Business-Add-on schaltet zusätzlich zur kostenlosen Core-Version alle
 folgenden Funktionen frei – als Jahresabo, gestaffelt nach Mitarbeiterzahl.
-

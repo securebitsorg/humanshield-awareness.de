@@ -4,51 +4,37 @@ tagline: The full feature set – tiered by number of employees
 order: 1
 highlighted: true
 groups:
-  - title: Campaigns
+  - title: Directories & sign-in
     features:
-      - Recurring campaigns
-      - Multi-stage campaigns
-      - Campaigns by user group
-      - Spear phishing
-      - Whaling
-      - QR code phishing (quishing)
-      - File-based attacks
-      - Credential harvesting
-  - title: Ready-made templates
+      - LDAP directory import with LDAPS and StartTLS
+      - Azure AD / Entra ID via Microsoft Graph
+      - SCIM 2.0 provisions users and groups automatically
+      - Passkeys as a second factor (WebAuthn)
+  - title: Templates & attack types
     features:
-      - Templates for DHL, Amazon, invoices
-      - Templates for vendor logins
-      - Templates for banks
-      - Templates for social media
-      - Templates for HR emails
-      - Templates for PDF lures
-      - Templates for QR code campaigns
-  - title: Integrations & directory
+      - Template library (DHL, Amazon, Microsoft 365, bank, PayPal, LinkedIn …)
+      - A matching landing page for every mail template
+      - .eml import of real emails including attachments
+      - AI-assisted creation via an OpenAI-compatible interface
+      - Spear phishing, whaling and file-based attacks
+      - QR code phishing (quishing) per recipient
+  - title: Campaign depth
     features:
-      - Webhooks
-      - LDAP
-      - Azure AD / Entra ID
-      - Group management
-      - Mail report button (Outlook)
-  - title: Reporting
+      - Recurring campaigns at a fixed interval
+      - Multi-stage campaigns with a template per stage
+  - title: Reporting channel
     features:
-      - PDF export
-      - Executive reports
-      - Management reports
-      - Compliance reports
-      - User development
-      - Department comparison
-      - Trend analysis
-      - Learning progress
-  - title: Compliance
+      - Reporting of suspicious mails with deduplication
+      - Mail report button for Thunderbird and Outlook
+      - Report without an account via a reporting token with limits
+  - title: Analysis & records
     features:
-      - GDPR
-      - NIS2
-      - ISO 27001
-      - Awareness records
-      - Audit reports
-      - Certificates
-      - Training records
+      - Credential capture masked and encrypted
+      - Executive report, trend analysis and user development
+      - PDF export with logo and company details
+      - Compliance center (GDPR, NIS2, ISO 27001, BSI ORP.3, § 38 BSIG)
+      - PDF/A-3b with embedded fonts
+      - Webhooks on every tracking event
 ---
 
 The Business add-on unlocks all of the following features on top of the free
