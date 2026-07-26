@@ -33,6 +33,12 @@ const {
   class: className = "",
 } = Astro.props;
 
+/**
+ * Tracking der Unterzeile. CSS haengt es auch hinter das letzte Zeichen, wodurch
+ * die rechte Kante gegenueber der Wortmarke leicht einrueckt. Das ist so
+ * beabsichtigt: die Referenz (logo-lockup-light-bg.png) zeigt genau diesen
+ * Einzug — 11 px bei 875 px Wortmarkenbreite. Nicht wegkompensieren.
+ */
 const TAGLINE_TRACKING = 0.32; // em, Design-System
 const taglineSize = Math.max(8, size * 0.24);
 const taglineGap = Math.round(size * 0.18);
@@ -56,7 +62,7 @@ const muted =
   {
     showTagline && (
       <span
-        style={`font-family:var(--font-mono);font-size:${taglineSize}px;letter-spacing:${TAGLINE_TRACKING}em;text-transform:uppercase;color:${muted};margin-top:${taglineGap}px;align-self:flex-end;margin-right:-${TAGLINE_TRACKING}em`}
+        style={`font-family:var(--font-mono);font-size:${taglineSize}px;letter-spacing:${TAGLINE_TRACKING}em;text-transform:uppercase;color:${muted};margin-top:${taglineGap}px;align-self:flex-end`}
       >
         {tagline}
       </span>
