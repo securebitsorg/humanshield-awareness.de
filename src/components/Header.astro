@@ -1,9 +1,8 @@
 ---
-import { Image } from "astro:assets";
+import Logo from "./Logo.astro";
 import { GITHUB_REPO_URL, DOCS_URL } from "../lib/pricing";
 import { useTranslations, localizedPath, switchLangPath } from "../i18n/utils";
 import { languages, type Lang } from "../i18n/ui";
-import logoLight from "../assets/logo-lockup-light-bg.png";
 
 interface Props {
   lang: Lang;
@@ -28,16 +27,13 @@ const langCodes = Object.keys(languages) as Lang[];
   <div
     class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6"
   >
-    <!-- Logo-Lockup, freigestellt (Variante für helle Flächen) -->
-    <a href={localizedPath(lang, "/")} class="inline-flex items-center">
-      <Image
-        src={logoLight}
-        alt="sentrymail. — Security Awareness"
-        widths={[112, 224]}
-        sizes="112px"
-        class="h-8 w-auto"
-        loading="eager"
-      />
+    <!-- Logo-Lockup: Wortmarke 20 px, Unterzeile damit auf ihrer 8-px-Untergrenze -->
+    <a
+      href={localizedPath(lang, "/")}
+      class="inline-flex items-center"
+      aria-label="sentrymail. — Security Awareness"
+    >
+      <Logo size={20} />
     </a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label={t("ariaMainNav")}>

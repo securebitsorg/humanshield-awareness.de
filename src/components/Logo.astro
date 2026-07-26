@@ -1,0 +1,72 @@
+---
+/**
+ * Logo-Lockup „sentrymail." als Komponente, nicht als Bild.
+ *
+ * Als Komponente statt SVG/PNG, damit die selbst gehostete Roboto sicher greift:
+ * ein SVG in einem <img> ist ein eigenes Dokument und sieht die Webfonts der
+ * Seite nicht — ohne systemweit installiertes Roboto fiele das Logo dort in eine
+ * Ersatzschrift. Ein gerastertes PNG wiederum skaliert uniform, wodurch die
+ * Unterzeile bei Kopfzeilengrößen zu einem grauen Streifen zusammenfällt.
+ *
+ * Maße nach Design-System (foundations/brand-wordmark.html):
+ *   Wortmarke   Roboto 700, letter-spacing -0.04em, „sentry" + Punkt in Ember
+ *   Unterzeile  Roboto Mono, max(8, size * 0.24), letter-spacing 0.32em, caps
+ *               marginTop round(size * 0.18), rechtsbündig
+ * Die Untergrenze von 8 px ist der Grund für diese Komponente — sie hält die
+ * Unterzeile lesbar, wenn die Wortmarke klein wird.
+ */
+interface Props {
+  /** Schriftgröße der Wortmarke in px; alles andere leitet sich daraus ab */
+  size?: number;
+  showTagline?: boolean;
+  tagline?: string;
+  /** „dark" für dunkle Flächen (Wortmarke weiß statt gray-900) */
+  variant?: "light" | "dark";
+  class?: string;
+}
+
+const {
+  size = 20,
+  showTagline = true,
+  tagline = "Security Awareness",
+  variant = "light",
+  class: className = "",
+} = Astro.props;
+
+/**
+ * Tracking der Unterzeile. CSS haengt es auch hinter das letzte Zeichen, wodurch
+ * die rechte Kante gegenueber der Wortmarke leicht einrueckt. Das ist so
+ * beabsichtigt: die Referenz (public/brand/logo-lockup-light-transparent.png)
+ * zeigt genau diesen Einzug — 11 px bei 875 px Wortmarkenbreite. Nicht
+ * wegkompensieren.
+ */
+const TAGLINE_TRACKING = 0.32; // em, Design-System
+const taglineSize = Math.max(8, size * 0.24);
+const taglineGap = Math.round(size * 0.18);
+
+const fg = variant === "dark" ? "#ffffff" : "var(--color-gray-900)";
+const muted =
+  variant === "dark" ? "rgba(255,255,255,0.5)" : "var(--color-steel)";
+---
+
+<span
+  class={`inline-flex flex-col items-start leading-none ${className}`}
+  style={`line-height:1`}
+>
+  <span
+    style={`font-family:var(--font-sans);font-weight:700;font-size:${size}px;letter-spacing:-0.04em;color:${fg}`}
+  >
+    <span style="color:var(--color-brand-500)">sentry</span>mail<span
+      style="color:var(--color-brand-500)">.</span
+    >
+  </span>
+  {
+    showTagline && (
+      <span
+        style={`font-family:var(--font-mono);font-size:${taglineSize}px;letter-spacing:${TAGLINE_TRACKING}em;text-transform:uppercase;color:${muted};margin-top:${taglineGap}px;align-self:flex-end`}
+      >
+        {tagline}
+      </span>
+    )
+  }
+</span>
