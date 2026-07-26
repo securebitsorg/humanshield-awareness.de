@@ -1,7 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import { GITHUB_REPO_URL, DOCS_URL } from "../lib/pricing";
 import { useTranslations, localizedPath, switchLangPath } from "../i18n/utils";
 import { languages, type Lang } from "../i18n/ui";
+import logoLight from "../assets/logo-lockup-light-bg.png";
 
 interface Props {
   lang: Lang;
@@ -26,14 +28,16 @@ const langCodes = Object.keys(languages) as Lang[];
   <div
     class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6"
   >
-    <!-- Wortmarke „sentrymail." (Design-System: rein typografisch, Ember-Punkt) -->
-    <a
-      href={localizedPath(lang, "/")}
-      class="text-xl font-bold lowercase text-gray-900"
-      style="letter-spacing:-0.04em"
-      aria-label="sentrymail."
-    >
-      sentrymail<span class="text-brand-500">.</span>
+    <!-- Logo-Lockup, freigestellt (Variante für helle Flächen) -->
+    <a href={localizedPath(lang, "/")} class="inline-flex items-center">
+      <Image
+        src={logoLight}
+        alt="sentrymail. — Security Awareness"
+        widths={[112, 224]}
+        sizes="112px"
+        class="h-8 w-auto"
+        loading="eager"
+      />
     </a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label={t("ariaMainNav")}>
