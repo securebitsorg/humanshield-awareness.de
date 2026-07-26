@@ -14,6 +14,13 @@ groups:
     features:
       - SAML Single Sign-On (ADFS, Entra ID, Keycloak, Okta …)
       - SIEM-Export an Splunk HEC, Elasticsearch, Microsoft Sentinel oder JSON
+  - title: Nachweise gegenüber Dritten
+    features:
+      - Zeitstempel eines Dritten nach RFC 3161 auf den Kopf der Nachweiskette
+      - Token unverändert gespeichert, extern prüfbar mit openssl ts -verify
+      - Fehlgeschlagener Stempel wird als Anker mit Status „failed“ festgehalten
+      - Befristeter Auditoren-Zugang, ausschließlich lesend und eigens protokolliert
+      - Ablaufdatum ist Pflicht, der Datenschutzmodus gilt weiter
   - title: Schulungsmodul (LMS)
     features:
       - Pflichtschulungen mit Videos, self-hosted (Dateisystem oder S3/MinIO)
@@ -32,6 +39,22 @@ groups:
       - Anhang-Prüfung über ClamAV und YARA-Regeln
       - MISP-Anreicherung gegen eigene Threat-Intel
       - Nicht erreichbare Prüfer gelten als „nicht geprüft“
+  - title: Wirksamkeit der eigenen Abwehr
+    features:
+      - Kontroll-Wirksamkeitstest misst, welche Schutzschicht was abfängt
+      - Acht Stufen von Anzeigenamen-Spoofing bis HTML-Smuggling
+      - Ausschließlich an ein eigenes Testpostfach, serverseitig erzwungen
+      - Bewusst harmlose Nutzlasten – EICAR statt Schadsoftware
+      - „blockiert“ ist das gute Ergebnis, ein IMAP-Problem nie ein Testergebnis
+      - BSI-Zuordnung je Stufe (APP.5.3.A4, APP.5.3.A5, NET.1.1.A3)
+  - title: Meldepflichten
+    features:
+      - NIS2-Meldeassistent mit Fristen-Uhr (24 h, 72 h, ein Monat) ab Kenntnis
+      - Keine automatische Übermittlung – die Ausgabe ist ein Entwurf
+      - Geführte Checkliste ohne Rechtsberatung, Hinweis in jeder Ausgabe
+      - Begründungspflicht in beide Richtungen, auch gegen eine Meldung
+      - DSGVO-Strang parallel mit eigener Uhr und anderem Adressaten (Art. 33)
+      - Eskalation an benannte Rollen mit Vertretung, je Stufe genau einmal
   - title: Reaktion
     features:
       - Massen-Quarantäne über Microsoft Graph oder Postfix/Dovecot
