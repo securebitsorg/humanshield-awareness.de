@@ -14,6 +14,13 @@ groups:
     features:
       - SAML single sign-on (ADFS, Entra ID, Keycloak, Okta …)
       - SIEM export to Splunk HEC, Elasticsearch, Microsoft Sentinel or JSON
+  - title: Evidence for third parties
+    features:
+      - Third-party RFC 3161 timestamp on the head of the chain of evidence
+      - Token stored verbatim, verifiable externally with openssl ts -verify
+      - A failed stamp is kept as an anchor with status “failed”
+      - Time-limited auditor access, read-only and logged separately
+      - An expiry date is mandatory, privacy mode still applies
   - title: Training module (LMS)
     features:
       - Mandatory video training, self-hosted (file system or S3/MinIO)
@@ -32,6 +39,22 @@ groups:
       - Attachment scanning via ClamAV and YARA rules
       - MISP enrichment against your own threat intel
       - Unreachable scanners count as “not scanned”
+  - title: Effectiveness of your own defenses
+    features:
+      - Control effectiveness test measures which layer catches what
+      - Eight stages from display-name spoofing to HTML smuggling
+      - Sent to your own test mailbox only, enforced server-side
+      - Deliberately harmless payloads – EICAR instead of malware
+      - “blocked” is the good result, an IMAP issue is never a test result
+      - BSI mapping per stage (APP.5.3.A4, APP.5.3.A5, NET.1.1.A3)
+  - title: Reporting obligations
+    features:
+      - NIS2 reporting assistant with a deadline clock (24 h, 72 h, one month)
+      - No automatic transmission – the output is a draft to download
+      - Guided checklist, no legal advice, with a notice in every output
+      - Justification required both ways, including a decision not to report
+      - Parallel GDPR track with its own clock and recipient (Art. 33)
+      - Escalation to named roles with deputies, exactly once per stage
   - title: Response
     features:
       - Bulk quarantine via Microsoft Graph or Postfix/Dovecot
