@@ -82,9 +82,6 @@ groups:
       - Docker Compose (rootless, gehärtet) mit Caddy und automatischem TLS
       - PostgreSQL und Redis, alle Daten bleiben in der eigenen Installation
       - Deutsch und Englisch, Light- und Dark-Mode
-      - Signierte Offline-Update-Bundles (Ed25519) für abgeschottete Instanzen
-      - Reproduzierbar baubar, mit min_version und Downgrade-Sperre
-      - Eine .env im Bundle wird erzwungen abgewiesen
 ---
 
 Die quelloffene Basis von SentryMail – kostenlos nutzbar und selbst hostbar.

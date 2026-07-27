@@ -82,9 +82,6 @@ groups:
       - Docker Compose (rootless, hardened) with Caddy and automatic TLS
       - PostgreSQL and Redis, all data stays in your own installation
       - German and English, light and dark mode
-      - Signed offline update bundles (Ed25519) for air-gapped instances
-      - Reproducible builds, with min_version and downgrade protection
-      - A .env inside a bundle is actively rejected
 ---
 
 The open-source foundation of SentryMail – free to use and self-hostable.
