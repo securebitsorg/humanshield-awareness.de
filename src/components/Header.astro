@@ -6,8 +6,10 @@ import { languages, type Lang } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
+  /* Sprachen, in denen es die aktuelle Seite gibt – siehe BaseLayout */
+  availableLangs?: readonly Lang[];
 }
-const { lang } = Astro.props;
+const { lang, availableLangs = ["de", "en"] as const } = Astro.props;
 const t = useTranslations(lang);
 
 const nav = [
@@ -62,7 +64,7 @@ const langCodes = Object.keys(languages) as Lang[];
             <>
               {i > 0 && <span class="text-gray-300">/</span>}
               <a
-                href={switchLangPath(Astro.url, code)}
+                href={switchLangPath(Astro.url, code, availableLangs)}
                 hreflang={code}
                 aria-current={code === lang ? "true" : undefined}
                 class={
@@ -146,7 +148,7 @@ const langCodes = Object.keys(languages) as Lang[];
             <>
               {i > 0 && <span class="text-gray-300">/</span>}
               <a
-                href={switchLangPath(Astro.url, code)}
+                href={switchLangPath(Astro.url, code, availableLangs)}
                 hreflang={code}
                 aria-current={code === lang ? "true" : undefined}
                 class={code === lang ? "text-brand-600" : "text-steel"}

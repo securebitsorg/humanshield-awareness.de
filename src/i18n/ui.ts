@@ -26,6 +26,22 @@ export const ui = {
     getStarted: "Jetzt starten",
     github: "GitHub",
     ariaMainNav: "Hauptnavigation",
+    ariaBreadcrumb: "Brotkrumennavigation",
+    breadcrumbHome: "Startseite",
+    faqShort: "Häufige Fragen",
+    navGuides: "Ratgeber",
+
+    // ── Staffeltabelle (serverseitig gerendert, siehe preise.astro) ───────
+    priceTableTitle: "Alle Staffelpreise im Überblick",
+    priceTableIntro:
+      "Der Preis pro Mitarbeiter:in sinkt mit der Teamgröße. Angegeben sind Nettopreise pro Mitarbeiter:in und Jahr im Jahresabo.",
+    priceTableEmployees: "Mitarbeitende",
+    priceTableBusiness: "Business",
+    priceTableEnterprise: "Enterprise",
+    priceTableFrom: "ab",
+    priceTablePerYear: "je Mitarbeiter:in/Jahr",
+    priceTableNote:
+      "Mindestbestellmenge: {min} Mitarbeitende. Enterprise entspricht Business zuzüglich {surcharge} % Aufschlag und schaltet White-Label, SSO, SIEM-Export und automatische Pflichtschulungen frei. Die Community-Edition bleibt dauerhaft kostenlos.",
     ariaMobileNav: "Mobile Navigation",
     ariaOpenMenu: "Menü öffnen",
     ariaSwitchLanguage: "Sprache wechseln",
@@ -104,16 +120,19 @@ export const ui = {
     metaBillingDesc:
       "Verwalten Sie Ihre SentryMail-Rechnungen und Ihr Abonnement über das Paddle-Kundenportal: Belege herunterladen, Zahlungsmethode ändern, Abo kündigen.",
 
-    // ── Meta / SEO ───────────────────────────────────────────────────────
-    metaHomeTitle: "SentryMail – Security Awareness, die wirkt",
+    /* ── Meta / SEO ───────────────────────────────────────────────────────
+       Titel bewusst keyword-first statt markenfirst: die Marke ist neu und
+       trägt in der Ergebnisliste noch keine Klicks, der Kategoriebegriff
+       schon. Länge je Titel unter ~60 Zeichen, damit Google nicht kürzt. */
+    metaHomeTitle: "Security Awareness & Phishing-Simulation | SentryMail",
     metaDefaultDesc:
-      "SentryMail – Security-Awareness-Trainings und Phishing-Simulationen, die Ihre Mitarbeitenden zur stärksten Verteidigungslinie machen. Entwickelt in Deutschland, DSGVO-konform und NIS2-ready.",
-    metaPricingTitle: "Preise – SentryMail",
+      "Security-Awareness-Training und Phishing-Simulation aus Deutschland: Open Source im Kern, wahlweise selbst gehostet, DSGVO-konform und passend zur NIS2-Schulungspflicht. Preise transparent ab 10 €/Mitarbeiter:in/Jahr.",
+    metaPricingTitle: "Was kostet Security-Awareness-Training? | SentryMail",
     metaPricingDesc:
-      "Transparente Preise für SentryMail: kostenlose Community-Edition, Business-Jahresabo gestaffelt nach Mitarbeiterzahl und Enterprise als Upgrade (+40 %) mit White-Label, SSO und SIEM-Export.",
-    metaFeaturesTitle: "Funktionen – SentryMail",
+      "Transparente Preise statt Angebot auf Anfrage: Community-Edition kostenlos, Business ab 10 €/Mitarbeiter:in/Jahr gestaffelt nach Teamgröße, Enterprise als Upgrade (+40 %) mit White-Label, SSO und SIEM-Export.",
+    metaFeaturesTitle: "Funktionen: Phishing-Simulation & Trainings | SentryMail",
     metaFeaturesDesc:
-      "Alle Funktionen von SentryMail im Überblick: Was die kostenlose Core-Version, das Business-Add-on und das Enterprise-Add-on freischalten.",
+      "Phishing-Simulationen, Micro-Trainings, Reporting und LMS-Pflichtschulungen im Überblick – und welche Funktionen die kostenlose Core-Version, Business und Enterprise freischalten.",
     titleSuffix: "SentryMail",
 
     // ── Preiskarten (PricingTiers.tsx) ───────────────────────────────────
@@ -166,6 +185,22 @@ export const ui = {
     getStarted: "Get started",
     github: "GitHub",
     ariaMainNav: "Main navigation",
+    ariaBreadcrumb: "Breadcrumb navigation",
+    breadcrumbHome: "Home",
+    faqShort: "Frequently asked questions",
+    navGuides: "Guides",
+
+    // ── Price band table (server-rendered, see preise.astro) ─────────────
+    priceTableTitle: "All price tiers at a glance",
+    priceTableIntro:
+      "The price per employee drops as the team grows. Figures are net prices per employee per year on the annual plan.",
+    priceTableEmployees: "Employees",
+    priceTableBusiness: "Business",
+    priceTableEnterprise: "Enterprise",
+    priceTableFrom: "from",
+    priceTablePerYear: "per employee/year",
+    priceTableNote:
+      "Minimum order: {min} employees. Enterprise equals Business plus a {surcharge}% surcharge and unlocks white-label, SSO, SIEM export and automatic mandatory training. The Community edition stays free forever.",
     ariaMobileNav: "Mobile navigation",
     ariaOpenMenu: "Open menu",
     ariaSwitchLanguage: "Switch language",
@@ -245,15 +280,15 @@ export const ui = {
       "Manage your SentryMail invoices and subscription via the Paddle customer portal: download receipts, change payment method, cancel your subscription.",
 
     // ── Meta / SEO ───────────────────────────────────────────────────────
-    metaHomeTitle: "SentryMail – Security awareness that works",
+    metaHomeTitle: "Security Awareness & Phishing Simulation | SentryMail",
     metaDefaultDesc:
-      "SentryMail – security awareness training and phishing simulations that turn your employees into your strongest line of defense. Built in Germany, GDPR-compliant and NIS2-ready.",
-    metaPricingTitle: "Pricing – SentryMail",
+      "Security awareness training and phishing simulation from Germany: open source at the core, self-hostable, GDPR-compliant and built for the NIS2 training obligation. Transparent pricing from €10 per employee per year.",
+    metaPricingTitle: "Security awareness training pricing | SentryMail",
     metaPricingDesc:
-      "Transparent pricing for SentryMail: free Community edition, a Business annual subscription tiered by number of employees, and Enterprise as an upgrade (+40%) with white-label, SSO and SIEM export.",
-    metaFeaturesTitle: "Features – SentryMail",
+      "Transparent pricing instead of quote-on-request: free Community edition, Business from €10 per employee per year tiered by team size, Enterprise as an upgrade (+40%) with white-label, SSO and SIEM export.",
+    metaFeaturesTitle: "Features: phishing simulation & training | SentryMail",
     metaFeaturesDesc:
-      "All SentryMail features at a glance: what the free Core version, the Business add-on and the Enterprise add-on unlock.",
+      "Phishing simulations, micro-trainings, reporting and LMS-based mandatory courses at a glance – and which features the free Core version, Business and Enterprise unlock.",
     titleSuffix: "SentryMail",
 
     // ── Pricing cards (PricingTiers.tsx) ─────────────────────────────────

@@ -38,8 +38,20 @@ export function localizedPath(lang: Lang, path: string): string {
   return `/${lang}${path}`;
 }
 
-/** Gleiche Seite in anderer Sprache – für den Sprachumschalter. */
-export function switchLangPath(url: URL, lang: Lang): string {
+/**
+ * Gleiche Seite in anderer Sprache – für Sprachumschalter und hreflang.
+ *
+ * `available` grenzt ein, in welchen Sprachen es die Seite überhaupt gibt.
+ * Fehlt die Zielsprache (etwa bei nur deutsch vorliegenden Landingpages),
+ * zeigt der Link auf deren Startseite statt auf eine 404-URL – ein hreflang
+ * auf eine nicht existierende Seite wertet Google als Fehler.
+ */
+export function switchLangPath(
+  url: URL,
+  lang: Lang,
+  available?: readonly Lang[],
+): string {
+  if (available && !available.includes(lang)) return `/${lang}/`;
   return url.pathname.replace(/^\/(de|en)/, `/${lang}`) || `/${lang}/`;
 }
 

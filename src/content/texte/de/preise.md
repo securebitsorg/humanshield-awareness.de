@@ -1,6 +1,8 @@
 ---
-title: Transparente Preise
+title: Was kostet Security-Awareness-Training?
 ---
 
-Kostenlos starten mit Community – oder volle Power mit Business und Enterprise
-im Jahresabo.
+Die meisten Anbieter nennen Preise erst auf Anfrage. Wir nicht: Die
+Community-Edition ist kostenlos, Business kostet ab 10 €/Mitarbeiter:in/Jahr
+und ist nach Teamgröße gestaffelt. Alle Sätze stehen unten – kein Vertriebsgespräch
+nötig.
