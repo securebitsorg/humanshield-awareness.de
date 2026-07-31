@@ -3,6 +3,7 @@ import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { GITHUB_REPO_URL } from "../../lib/pricing";
 import { useTranslations, localizedPath } from "../../i18n/utils";
+import { breadcrumbLd } from "../../lib/seo";
 import { type Lang } from "../../i18n/ui";
 
 export function getStaticPaths() {
@@ -17,13 +18,32 @@ const intro = await getEntry("texte", `${lang}/addons`);
 if (!intro) throw new Error(`src/content/texte/${lang}/addons.md fehlt`);
 const { Content: IntroText } = await render(intro);
 
+const breadcrumb = breadcrumbLd(
+  Astro.site,
+  "SentryMail",
+  localizedPath(lang, "/"),
+  t("navFeatures"),
+  localizedPath(lang, "/funktionen"),
+);
+
 const addons = (await getCollection("addons"))
   .filter((e) => e.id.startsWith(`${lang}/`))
   .sort((a, b) => a.data.order - b.data.order);
 const addonContents = await Promise.all(addons.map((a) => render(a)));
 ---
 
-<BaseLayout lang={lang} title={t("metaFeaturesTitle")} description={t("metaFeaturesDesc")}>
+<BaseLayout
+  lang={lang}
+  title={t("metaFeaturesTitle")}
+  description={t("metaFeaturesDesc")}
+  ogImagePath="/og/funktionen.png"
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumb)}
+    is:inline
+  />
   <!-- ===== Hero ===== -->
   <section class="relative overflow-hidden py-20 sm:py-24">
     <div

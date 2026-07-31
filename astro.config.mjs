@@ -33,6 +33,11 @@ export default defineConfig({
         defaultLocale: "de",
         locales: { de: "de", en: "en" },
       },
+      // Seiten mit <meta name="robots" content="noindex"> gehören nicht in die
+      // Sitemap: die Root-Sprachweiche sowie die Rechtstexte.
+      filter: (page) =>
+        !/\/(impressum|datenschutz|agb|rechnungen)\/$/.test(page) &&
+        page !== "https://sentrymail.de/",
     }),
   ],
   vite: {

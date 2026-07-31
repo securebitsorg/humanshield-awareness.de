@@ -4,7 +4,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PricingTiers from "../../components/react/PricingTiers";
 import PriceCalculator from "../../components/react/PriceCalculator";
 import { SALES_EMAIL } from "../../lib/pricing";
-import { useTranslations } from "../../i18n/utils";
+import { useTranslations, localizedPath } from "../../i18n/utils";
+import { plainText, breadcrumbLd } from "../../lib/seo";
 import { type Lang } from "../../i18n/ui";
 
 export function getStaticPaths() {
@@ -29,9 +30,47 @@ const faq = (await getCollection("faq"))
   .filter((e) => e.id.startsWith(`${lang}/`))
   .sort((a, b) => a.data.order - b.data.order);
 const faqContents = await Promise.all(faq.map((f) => render(f)));
+
+/* FAQPage-Auszeichnung: macht die Fragen für Google als FAQ-Block lesbar.
+   Fragen/Antworten stammen 1:1 aus den unten gerenderten Markdown-Einträgen –
+   Google verlangt, dass das Markup dem sichtbaren Inhalt entspricht. */
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.data.question,
+    acceptedAnswer: { "@type": "Answer", text: plainText(item.body ?? "") },
+  })),
+};
+
+const breadcrumb = breadcrumbLd(
+  Astro.site,
+  "SentryMail",
+  localizedPath(lang, "/"),
+  t("navPricing"),
+  localizedPath(lang, "/preise"),
+);
 ---
 
-<BaseLayout lang={lang} title={t("metaPricingTitle")} description={t("metaPricingDesc")}>
+<BaseLayout
+  lang={lang}
+  title={t("metaPricingTitle")}
+  description={t("metaPricingDesc")}
+  ogImagePath="/og/preise.png"
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(faqLd)}
+    is:inline
+  />
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumb)}
+    is:inline
+  />
   <!-- ===== Preisübersicht ===== -->
   <section class="relative overflow-hidden py-20 sm:py-24">
     <div

@@ -9,15 +9,48 @@ interface Props {
   title: string;
   lang: Lang;
   description?: string;
+  /* true → Seite aus dem Index halten (Rechtstexte, Selbstbedienungsseiten) */
+  noindex?: boolean;
+  /* Pfad unter public/og/ – erzeugt von scripts/generate-og-images.mjs */
+  ogImagePath?: string;
 }
 
-const { title, lang, description } = Astro.props;
+const {
+  title,
+  lang,
+  description,
+  noindex = false,
+  ogImagePath = "/og/default.png",
+} = Astro.props;
 const t = useTranslations(lang);
 const metaDescription = description ?? t("metaDefaultDesc");
 
 // hreflang-Alternates: gleiche Seite in beiden Sprachen
 const dePath = switchLangPath(Astro.url, "de");
 const enPath = switchLangPath(Astro.url, "en");
+
+// Canonical: verhindert, dass Varianten (Query-Parameter, versehentliche
+// Doppel-URLs) als eigenständige Seiten in den Index wandern.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+// Englische Karten liegen unter demselben Namen mit "en-"-Präfix
+const ogImage = new URL(
+  lang === "de" ? ogImagePath : ogImagePath.replace("/og/", "/og/en-"),
+  Astro.site,
+);
+const ogLocale = lang === "de" ? "de_DE" : "en_GB";
+const ogLocaleAlt = lang === "de" ? "en_GB" : "de_DE";
+
+/* Organisation site-weit: verknüpft Marke, Logo und Kontaktkanäle für die
+   Knowledge-Graph-Auswertung. Nur einmal pro Seite ausgeben. */
+const organizationLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "SentryMail",
+  url: new URL("/", Astro.site).href,
+  logo: new URL("/brand/logo-lockup-light-transparent.png", Astro.site).href,
+  description: t("metaDefaultDesc"),
+  areaServed: "EU",
+};
 ---
 
 <!doctype html>
@@ -28,6 +61,8 @@ const enPath = switchLangPath(Astro.url, "en");
     <meta name="description" content={metaDescription} />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#FBFBFC" />
+    {/* follow → Links werden weiterhin verfolgt, nur die Seite selbst nicht indexiert */}
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <!-- Favicons (SentryMail Design-System) -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -51,6 +86,7 @@ const enPath = switchLangPath(Astro.url, "en");
       crossorigin
     />
 
+    <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="de" href={new URL(dePath, Astro.site)} />
     <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
     <link
@@ -58,7 +94,33 @@ const enPath = switchLangPath(Astro.url, "en");
       hreflang="x-default"
       href={new URL(switchLangPath(Astro.url, defaultLang), Astro.site)}
     />
+
+    <!-- Open Graph / Twitter: steuert die Vorschaukarte in LinkedIn, Slack, X … -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SentryMail" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SentryMail – Security Awareness" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
     <title>{title}</title>
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationLd)}
+      is:inline
+    />
+    <!-- Seiten ergänzen hier eigenes JSON-LD (FAQPage, Product, …) -->
+    <slot name="head" />
   </head>
   <body class="flex min-h-screen flex-col">
     <Header lang={lang} />

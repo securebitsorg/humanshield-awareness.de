@@ -18,7 +18,11 @@ if (!seite) throw new Error(`src/content/seiten/${lang}/datenschutz.md fehlt`);
 const { Content } = await render(seite);
 ---
 
-<BaseLayout lang={lang} title={`${seite.data.title} – ${t("titleSuffix")}`}>
+<BaseLayout
+  lang={lang}
+  title={`${seite.data.title} – ${t("titleSuffix")}`}
+  noindex
+>
   <section class="mx-auto max-w-3xl px-4 py-20 sm:px-6">
     <h1 class="text-3xl font-bold tracking-display text-gray-900">
       {seite.data.title}
