@@ -3,8 +3,19 @@ import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PricingTiers from "../../components/react/PricingTiers";
 import PriceCalculator from "../../components/react/PriceCalculator";
-import { SALES_EMAIL } from "../../lib/pricing";
-import { useTranslations, localizedPath } from "../../i18n/utils";
+import {
+  SALES_EMAIL,
+  priceBands,
+  MIN_ORDER_EMPLOYEES,
+  ENTERPRISE_SURCHARGE,
+  formatEuro,
+} from "../../lib/pricing";
+import {
+  useTranslations,
+  localizedPath,
+  intlLocale,
+  format,
+} from "../../i18n/utils";
 import { plainText, breadcrumbLd } from "../../lib/seo";
 import { type Lang } from "../../i18n/ui";
 
@@ -43,6 +54,26 @@ const faqLd = {
     acceptedAnswer: { "@type": "Answer", text: plainText(item.body ?? "") },
   })),
 };
+
+/* Staffeltabelle serverseitig rendern: Preiskarten und Rechner sind React-
+   Islands mit client:visible, ihre Zahlen stehen also nicht im ausgelieferten
+   HTML. Eine Seite, die „Was kostet …?" beantworten soll, braucht die Beträge
+   aber als Text – sonst sieht eine Suchmaschine hier keine einzige Zahl. */
+const locale = intlLocale(lang);
+const bandRows = priceBands.map((band, i) => {
+  const from = i === 0 ? MIN_ORDER_EMPLOYEES : priceBands[i - 1].maxEmployees! + 1;
+  return {
+    range:
+      band.maxEmployees === null
+        ? `${t("priceTableFrom")} ${from.toLocaleString(locale)}`
+        : `${from.toLocaleString(locale)} – ${band.maxEmployees.toLocaleString(locale)}`,
+    business: formatEuro(band.pricePerEmployeeYearly, locale),
+    enterprise: formatEuro(
+      Math.round(band.pricePerEmployeeYearly * (1 + ENTERPRISE_SURCHARGE) * 100) / 100,
+      locale,
+    ),
+  };
+});
 
 const breadcrumb = breadcrumbLd(
   Astro.site,
@@ -115,8 +146,66 @@ const breadcrumb = breadcrumbLd(
     </div>
   </section>
 
-  <!-- ===== FAQ ===== -->
+  <!-- ===== Staffeltabelle (statisch, für Suchmaschinen lesbar) ===== -->
   <section class="py-20 sm:py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <h2
+        class="reveal text-3xl font-bold tracking-display text-gray-900 sm:text-4xl"
+      >
+        {t("priceTableTitle")}
+      </h2>
+      <p class="reveal mt-4 text-lg text-steel">{t("priceTableIntro")}</p>
+
+      <div class="reveal mt-8 overflow-x-auto">
+        <table class="w-full border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-300">
+              <th scope="col" class="py-3 pr-4 font-semibold text-gray-900">
+                {t("priceTableEmployees")}
+              </th>
+              <th scope="col" class="py-3 pr-4 font-semibold text-gray-900">
+                {t("priceTableBusiness")}
+              </th>
+              <th scope="col" class="py-3 font-semibold text-gray-900">
+                {t("priceTableEnterprise")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              bandRows.map((row) => (
+                <tr class="border-b border-gray-200">
+                  <th scope="row" class="py-3 pr-4 font-medium text-gray-900">
+                    {row.range}
+                  </th>
+                  <td class="py-3 pr-4 text-steel">
+                    {row.business}{" "}
+                    <span class="text-gray-400">{t("priceTablePerYear")}</span>
+                  </td>
+                  <td class="py-3 text-steel">
+                    {row.enterprise}{" "}
+                    <span class="text-gray-400">{t("priceTablePerYear")}</span>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p class="reveal mt-6 text-sm text-steel">
+        {
+          format(t("priceTableNote"), {
+            min: MIN_ORDER_EMPLOYEES,
+            surcharge: Math.round(ENTERPRISE_SURCHARGE * 100),
+          })
+        }
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="bg-gray-50 py-20 sm:py-24">
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
       <p class="eyebrow reveal text-center">{t("faqEyebrow")}</p>
       <h2 class="reveal mt-3 text-center text-3xl font-bold tracking-display text-gray-900">

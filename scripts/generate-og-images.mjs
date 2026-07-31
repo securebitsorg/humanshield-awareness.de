@@ -165,6 +165,21 @@ const CARDS = [
     subline: "Community kostenlos · Business ab 10 €/Mitarbeiter:in/Jahr",
   },
   {
+    file: "og/nis2.png",
+    headline: "NIS2-Schulungspflicht erfüllen und nachweisen",
+    subline: "§ 30 und § 38 BSIG · Schulung, Simulation, Dokumentation",
+  },
+  {
+    file: "og/open-source.png",
+    headline: "Phishing-Simulation selbst hosten",
+    subline: "Open Core · Ihre Daten bleiben in Ihrem Netz",
+  },
+  {
+    file: "og/alternative.png",
+    headline: "Der sachliche Anbietervergleich",
+    subline: "Offene Preise · Self-Hosting · Open-Source-Kern",
+  },
+  {
     file: "og/en-default.png",
     headline: "Security awareness that works",
     subline: "Made in Germany · GDPR-compliant · NIS2-ready",

@@ -13,6 +13,9 @@ interface Props {
   noindex?: boolean;
   /* Pfad unter public/og/ – erzeugt von scripts/generate-og-images.mjs */
   ogImagePath?: string;
+  /* Sprachen, in denen es diese Seite gibt. Landingpages liegen vorerst nur
+     auf Deutsch vor – dann darf kein hreflang auf eine 404-URL zeigen. */
+  availableLangs?: readonly Lang[];
 }
 
 const {
@@ -21,13 +24,14 @@ const {
   description,
   noindex = false,
   ogImagePath = "/og/default.png",
+  availableLangs = ["de", "en"] as const,
 } = Astro.props;
 const t = useTranslations(lang);
 const metaDescription = description ?? t("metaDefaultDesc");
 
-// hreflang-Alternates: gleiche Seite in beiden Sprachen
-const dePath = switchLangPath(Astro.url, "de");
-const enPath = switchLangPath(Astro.url, "en");
+// hreflang-Alternates – nur für Sprachen, in denen die Seite existiert
+const dePath = switchLangPath(Astro.url, "de", availableLangs);
+const enPath = switchLangPath(Astro.url, "en", availableLangs);
 
 // Canonical: verhindert, dass Varianten (Query-Parameter, versehentliche
 // Doppel-URLs) als eigenständige Seiten in den Index wandern.
@@ -87,12 +91,23 @@ const organizationLd = {
     />
 
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="de" href={new URL(dePath, Astro.site)} />
-    <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+    {
+      availableLangs.includes("de") && (
+        <link rel="alternate" hreflang="de" href={new URL(dePath, Astro.site)} />
+      )
+    }
+    {
+      availableLangs.includes("en") && (
+        <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+      )
+    }
     <link
       rel="alternate"
       hreflang="x-default"
-      href={new URL(switchLangPath(Astro.url, defaultLang), Astro.site)}
+      href={new URL(
+        switchLangPath(Astro.url, defaultLang, availableLangs),
+        Astro.site,
+      )}
     />
 
     <!-- Open Graph / Twitter: steuert die Vorschaukarte in LinkedIn, Slack, X … -->
@@ -123,7 +138,7 @@ const organizationLd = {
     <slot name="head" />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Header lang={lang} />
+    <Header lang={lang} availableLangs={availableLangs} />
     <main class="flex-1">
       <slot />
     </main>

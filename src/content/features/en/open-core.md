@@ -1,8 +1,8 @@
 ---
-title: Open Core
+title: Open source at the core
 icon: code-bracket
 order: 5
 ---
 
-The core of SentryMail is open source. Review the code, host it yourself –
-or start right away with Business.
+Audit the code, run the phishing simulation on-premise – or start right away
+with Business if you would rather not operate it yourself.

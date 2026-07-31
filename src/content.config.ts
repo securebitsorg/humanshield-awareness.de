@@ -103,6 +103,37 @@ const seiten = defineCollection({
   }),
 });
 
+/**
+ * SEO-Landingpages (Ratgeber- und Vergleichsseiten). Eine Datei pro Seite und
+ * Sprache, Dateiname = URL-Slug. Gerendert von src/pages/[lang]/[slug].astro.
+ */
+const landing = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/landing" }),
+  schema: z.object({
+    /** Sichtbare H1 */
+    title: z.string(),
+    /** Kleine Zeile über der H1 */
+    eyebrow: z.string(),
+    /** <title> – bewusst getrennt von der H1, andere Längenvorgabe */
+    metaTitle: z.string(),
+    metaDesc: z.string(),
+    /** Lead-Absatz unter der H1 */
+    intro: z.string(),
+    /** Name im Breadcrumb (kürzer als die H1) */
+    breadcrumb: z.string(),
+    /** Datei unter public/og/ (deutsche Fassung; EN bekommt das en--Präfix) */
+    ogImage: z.string().optional(),
+    /** Wird als FAQPage ausgezeichnet, wenn gesetzt */
+    faq: z
+      .array(z.object({ question: z.string(), answer: z.string() }))
+      .optional(),
+    ctaTitle: z.string(),
+    ctaText: z.string(),
+    /** Fußnote, z. B. rechtlicher Hinweis */
+    disclaimer: z.string().optional(),
+  }),
+});
+
 export const collections = {
   texte,
   features,
@@ -111,4 +142,5 @@ export const collections = {
   addons,
   faq,
   seiten,
+  landing,
 };

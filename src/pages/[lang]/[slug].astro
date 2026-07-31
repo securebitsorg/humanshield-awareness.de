@@ -1,0 +1,166 @@
+---
+/**
+ * Rendert alle SEO-Landingpages aus der Collection "landing" (Ratgeber- und
+ * Vergleichsseiten). getStaticPaths gibt ausschließlich die Slugs dieser
+ * Collection zurück – die festen Routen (funktionen, preise …) liegen als
+ * eigene Dateien daneben und werden dadurch nicht berührt.
+ */
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { useTranslations, localizedPath } from "../../i18n/utils";
+import { breadcrumbLd } from "../../lib/seo";
+import { type Lang } from "../../i18n/ui";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("landing");
+  /* Welche Sprachen es je Slug gibt – die Ratgeber liegen vorerst nur auf
+     Deutsch vor, hreflang und Sprachumschalter dürfen dann nicht auf eine
+     nicht existierende Übersetzung zeigen. */
+  const langsBySlug = new Map<string, Lang[]>();
+  for (const entry of entries) {
+    const [entryLang, entrySlug] = entry.id.split("/");
+    langsBySlug.set(entrySlug, [
+      ...(langsBySlug.get(entrySlug) ?? []),
+      entryLang as Lang,
+    ]);
+  }
+
+  return entries.map((entry) => {
+    const [lang, slug] = entry.id.split("/");
+    return {
+      params: { lang, slug },
+      props: { entry, availableLangs: langsBySlug.get(slug) ?? [lang as Lang] },
+    };
+  });
+}
+
+const { entry, availableLangs } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug as string;
+const t = useTranslations(lang);
+const { Content } = await render(entry);
+
+const breadcrumb = breadcrumbLd(
+  Astro.site,
+  "SentryMail",
+  localizedPath(lang, "/"),
+  entry.data.breadcrumb,
+  localizedPath(lang, `/${slug}`),
+);
+
+const faqLd = entry.data.faq && {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: entry.data.faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
+/* Beide Schemas in EINEM Script-Tag: mehrere Elemente mit slot="head" – davon
+   eines in einem Ausdruck – überschreiben sich gegenseitig. Ein Array ist
+   ohnehin die kompaktere Form und für Google gleichwertig. */
+const structuredData = [breadcrumb, faqLd].filter(Boolean);
+---
+
+<BaseLayout
+  lang={lang}
+  title={entry.data.metaTitle}
+  description={entry.data.metaDesc}
+  ogImagePath={entry.data.ogImage ? `/og/${entry.data.ogImage}` : undefined}
+  availableLangs={availableLangs}
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData)}
+    is:inline
+  />
+
+  <!-- ===== Hero ===== -->
+  <section class="relative overflow-hidden py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute -top-40 left-1/2 h-[400px] w-[700px] -translate-x-1/2 rounded-full bg-brand-100/50 blur-3xl"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative mx-auto max-w-3xl px-4 sm:px-6">
+      <nav aria-label={t("ariaBreadcrumb")} class="mb-6 text-sm text-steel">
+        <a href={localizedPath(lang, "/")} class="hover:text-gray-900">
+          {t("breadcrumbHome")}
+        </a>
+        <span class="mx-2 text-gray-300" aria-hidden="true">/</span>
+        <span class="text-gray-900">{entry.data.breadcrumb}</span>
+      </nav>
+
+      <p class="eyebrow">{entry.data.eyebrow}</p>
+      <h1
+        class="mt-3 text-4xl font-extrabold tracking-display text-gray-900 sm:text-5xl"
+      >
+        {entry.data.title}
+      </h1>
+      <p class="mt-5 text-lg text-steel">{entry.data.intro}</p>
+    </div>
+  </section>
+
+  <!-- ===== Fließtext ===== -->
+  <section class="pb-20 sm:pb-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="prose prose-gray max-w-none">
+        <Content />
+      </div>
+
+      {
+        entry.data.faq && (
+          <div class="mt-16">
+            <h2 class="text-2xl font-bold tracking-display text-gray-900">
+              {t("faqShort")}
+            </h2>
+            <dl class="mt-8 space-y-6">
+              {entry.data.faq.map((item) => (
+                <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <dt class="font-semibold text-gray-900">{item.question}</dt>
+                  <dd class="mt-2 text-steel">{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )
+      }
+
+      <!-- CTA -->
+      <div
+        class="mt-16 rounded-2xl border border-gray-200 bg-gray-50 p-8 text-center"
+      >
+        <h2 class="text-2xl font-bold tracking-display text-gray-900">
+          {entry.data.ctaTitle}
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-steel">{entry.data.ctaText}</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a
+            href={localizedPath(lang, "/preise")}
+            class="rounded-lg bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+          >
+            {t("navPricing")}
+          </a>
+          <a
+            href={localizedPath(lang, "/funktionen")}
+            class="rounded-lg border border-gray-300 px-5 py-3 text-sm font-semibold text-gray-900 transition-colors hover:border-gray-400"
+          >
+            {t("navFeatures")}
+          </a>
+        </div>
+      </div>
+
+      {
+        entry.data.disclaimer && (
+          <p class="mt-10 border-t border-gray-200 pt-6 text-sm text-steel">
+            {entry.data.disclaimer}
+          </p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
