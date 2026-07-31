@@ -10,7 +10,7 @@ ctaTitle: Kern kostenlos, Add-ons wenn Sie sie brauchen
 ctaText: Starten Sie mit der Community-Edition auf eigener Hardware – und schalten Sie Business oder Enterprise frei, wenn Automatisierung und Compliance-Reporting dazukommen sollen.
 faq:
   - question: Ist SentryMail vollständig Open Source?
-    answer: Der Kern ist Open Source und kann kostenlos selbst gehostet werden. Business und Enterprise sind kommerzielle Add-ons – das Modell heißt Open Core. Sie können den Kern also prüfen und dauerhaft kostenlos betreiben, zahlen aber für Funktionen wie automatische Pflichtschulungen, SSO oder SIEM-Export.
+    answer: Der Kern ist Open Source und lässt sich dauerhaft kostenlos selbst hosten – das Modell heißt Open Core. Kostenpflichtig sind die beiden Add-ons. Business schaltet die Vorlagen-Bibliothek, mehrstufige und wiederkehrende Kampagnen, Spear Phishing und Quishing, den Melde-Button für Outlook und Thunderbird, die Verzeichnisanbindung über LDAP, Entra ID und SCIM 2.0, Passkeys als zweiten Faktor sowie das Nachweis-Center für DSGVO, NIS2 und ISO 27001 frei. Enterprise ergänzt das Schulungsmodul mit automatischer Kurszuweisung und Fristen, White-Label, SAML Single Sign-On, SIEM-Export, RFC-3161-Zeitstempel auf die Nachweiskette, den NIS2-Meldeassistenten und Simulationen über SMS, Matrix oder USB-Drop.
   - question: Was unterscheidet SentryMail von Gophish?
     answer: "Gophish ist ein reines Phishing-Framework: es versendet Kampagnen und misst Klicks. SentryMail verbindet die Simulation mit Lerninhalten, Awareness-Score und Nachweisdokumentation – also dem Teil, den Compliance-Anforderungen wie NIS2 verlangen."
   - question: Welche Daten verlassen bei Self-Hosting mein Netz?
