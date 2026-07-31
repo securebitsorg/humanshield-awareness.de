@@ -41,7 +41,7 @@ export const ui = {
     priceTableFrom: "ab",
     priceTablePerYear: "je Mitarbeiter:in/Jahr",
     priceTableNote:
-      "Mindestbestellmenge: {min} Mitarbeitende. Enterprise entspricht Business zuzüglich {surcharge} % Aufschlag und schaltet White-Label, SSO, SIEM-Export und automatische Pflichtschulungen frei. Die Community-Edition bleibt dauerhaft kostenlos.",
+      "Mindestbestellmenge: {min} Mitarbeitende. Enterprise entspricht Business zuzüglich {surcharge} % Aufschlag und schaltet White-Label, SAML-SSO, SIEM-Export und automatische Pflichtschulungen frei. Die Community-Edition bleibt dauerhaft kostenlos.",
     ariaMobileNav: "Mobile Navigation",
     ariaOpenMenu: "Menü öffnen",
     ariaSwitchLanguage: "Sprache wechseln",
@@ -129,7 +129,7 @@ export const ui = {
       "Security-Awareness-Training und Phishing-Simulation aus Deutschland: Open Source im Kern, wahlweise selbst gehostet, DSGVO-konform und passend zur NIS2-Schulungspflicht. Preise transparent ab 10 €/Mitarbeiter:in/Jahr.",
     metaPricingTitle: "Was kostet Security-Awareness-Training? | SentryMail",
     metaPricingDesc:
-      "Transparente Preise statt Angebot auf Anfrage: Community-Edition kostenlos, Business ab 10 €/Mitarbeiter:in/Jahr gestaffelt nach Teamgröße, Enterprise als Upgrade (+40 %) mit White-Label, SSO und SIEM-Export.",
+      "Transparente Preise statt Angebot auf Anfrage: Community-Edition kostenlos, Business ab 10 €/Mitarbeiter:in/Jahr gestaffelt nach Teamgröße, Enterprise als Upgrade (+40 %) mit White-Label, SAML-SSO und SIEM-Export.",
     metaFeaturesTitle: "Funktionen: Phishing-Simulation & Trainings | SentryMail",
     metaFeaturesDesc:
       "Phishing-Simulationen, Micro-Trainings, Reporting und LMS-Pflichtschulungen im Überblick – und welche Funktionen die kostenlose Core-Version, Business und Enterprise freischalten.",
@@ -200,7 +200,7 @@ export const ui = {
     priceTableFrom: "from",
     priceTablePerYear: "per employee/year",
     priceTableNote:
-      "Minimum order: {min} employees. Enterprise equals Business plus a {surcharge}% surcharge and unlocks white-label, SSO, SIEM export and automatic mandatory training. The Community edition stays free forever.",
+      "Minimum order: {min} employees. Enterprise equals Business plus a {surcharge}% surcharge and unlocks white-label, SAML SSO, SIEM export and automatic mandatory training. The Community edition stays free forever.",
     ariaMobileNav: "Mobile navigation",
     ariaOpenMenu: "Open menu",
     ariaSwitchLanguage: "Switch language",
@@ -285,7 +285,7 @@ export const ui = {
       "Security awareness training and phishing simulation from Germany: open source at the core, self-hostable, GDPR-compliant and built for the NIS2 training obligation. Transparent pricing from €10 per employee per year.",
     metaPricingTitle: "Security awareness training pricing | SentryMail",
     metaPricingDesc:
-      "Transparent pricing instead of quote-on-request: free Community edition, Business from €10 per employee per year tiered by team size, Enterprise as an upgrade (+40%) with white-label, SSO and SIEM export.",
+      "Transparent pricing instead of quote-on-request: free Community edition, Business from €10 per employee per year tiered by team size, Enterprise as an upgrade (+40%) with white-label, SAML SSO and SIEM export.",
     metaFeaturesTitle: "Features: phishing simulation & training | SentryMail",
     metaFeaturesDesc:
       "Phishing simulations, micro-trainings, reporting and LMS-based mandatory courses at a glance – and which features the free Core version, Business and Enterprise unlock.",
@@ -359,7 +359,7 @@ export const tierText = {
     },
     enterprise: {
       name: "Enterprise",
-      tagline: "Business plus Plattform, KI & SSO – als Upgrade (+40 %)",
+      tagline: "Business plus Plattform, KI & SAML-SSO – als Upgrade (+40 %)",
       features: [
         "Alle Business-Funktionen",
         "White-Label & SAML-SSO",
@@ -393,7 +393,7 @@ export const tierText = {
     },
     enterprise: {
       name: "Enterprise",
-      tagline: "Business plus platform, AI & SSO – as an upgrade (+40%)",
+      tagline: "Business plus platform, AI & SAML SSO – as an upgrade (+40%)",
       features: [
         "All Business features",
         "White-label & SAML SSO",

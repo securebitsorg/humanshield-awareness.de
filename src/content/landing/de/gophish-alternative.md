@@ -2,8 +2,8 @@
 title: Gophish-Alternative mit Trainings und Nachweisen
 eyebrow: Werkzeugvergleich
 metaTitle: "Gophish-Alternative mit Training & Nachweisen"
-metaDesc: "Gophish verschickt Phishing-Kampagnen zuverlässig und kostenlos. Was fehlt, wenn daraus ein prüfbares Awareness-Programm nach NIS2 werden soll – und wie SentryMail daran anschließt."
-intro: Gophish ist ein gutes Werkzeug und für viele Teams der Einstieg in Phishing-Simulationen. Die Grenze zeigt sich, sobald aus einzelnen Kampagnen ein fortlaufendes, nachweisbares Programm werden soll.
+metaDesc: "Gophish verschickt Phishing-Kampagnen kostenlos – hat aber seit 2022 keinen Release mehr. Was fehlt, wenn daraus ein dauerhaftes, prüfbares Awareness-Programm nach NIS2 werden soll."
+intro: Gophish war für viele Teams der Einstieg in Phishing-Simulationen. Zwei Dinge sprechen heute gegen den Dauerbetrieb – der Wartungsstand und die Frage, was nach dem gemessenen Klick eigentlich passiert.
 breadcrumb: Gophish-Alternative
 ogImage: alternative.png
 ctaTitle: Self-Hosting behalten, Programm ergänzen
@@ -11,11 +11,11 @@ ctaText: SentryMail lässt sich wie Gophish auf eigener Hardware betreiben – b
 disclaimer: "Angaben zu Gophish beziehen sich auf das öffentliche Repository github.com/gophish/gophish, Stand Juli 2026. Gophish steht unter der MIT-Lizenz und ist ein unabhängiges Projekt ohne Verbindung zu SentryMail. Alle genannten Marken gehören ihren jeweiligen Inhabern."
 faq:
   - question: Ist Gophish schlecht?
-    answer: Nein. Gophish ist ein solides, quelloffenes Phishing-Toolkit unter MIT-Lizenz, das seine Aufgabe erfüllt – Kampagnen anlegen, versenden und Klicks messen. Es ist nur nicht als vollständiges Awareness-Programm mit Lerninhalten und Compliance-Nachweisen gebaut.
+    answer: Nein, aber es ist erkennbar aus der aktiven Entwicklung gefallen. Als Werkzeug ist Gophish solide und erfüllt seine Aufgabe – Kampagnen anlegen, versenden, Klicks messen. Der letzte Release v0.12.1 stammt allerdings vom 14. September 2022, der letzte Commit auf dem master-Branch vom 23. September 2024. Bei Software, die Phishing-Mails verschickt und eingegebene Zugangsdaten verarbeitet, ist so ein Stillstand ein eigenes Risiko. Dazu kommt, dass Gophish nie als vollständiges Awareness-Programm mit Lerninhalten und Compliance-Nachweisen gedacht war.
   - question: Kann ich von Gophish zu SentryMail wechseln?
     answer: Beide Werkzeuge laufen auf eigener Infrastruktur, das Betriebsmodell bleibt also dasselbe. Sie tauschen kein Konzept aus, sondern ergänzen die Simulation um Lernpfade, Fortschrittsmessung und Dokumentation.
   - question: Was kostet SentryMail im Vergleich zum kostenlosen Gophish?
-    answer: Die Community-Edition von SentryMail ist ebenfalls kostenlos und selbst hostbar. Kosten entstehen erst, wenn Sie Business oder Enterprise für Automatisierung, SSO, SIEM-Export oder automatische Pflichtschulungen dazunehmen.
+    answer: Die Community-Edition von SentryMail ist ebenfalls kostenlos und selbst hostbar. Kosten entstehen erst, wenn Sie Business oder Enterprise für Automatisierung, SAML-SSO, SIEM-Export oder automatische Pflichtschulungen dazunehmen.
   - question: Reicht Gophish für NIS2?
     answer: Für die Simulation selbst kann es reichen. Was Sie zusätzlich brauchen, sind die Lerninhalte und eine belastbare Dokumentation, wer wann welche Schulung abgeschlossen hat – diesen Teil deckt ein reines Phishing-Toolkit nicht ab.
 ---
@@ -31,6 +31,23 @@ eine gute und kostenlose Antwort.
 
 Auch das Betriebsmodell überzeugt: Sie hosten selbst, es gibt keinen
 Auftragsverarbeiter und keine Daten in fremder Hand.
+
+## Der Wartungsstand ist das eigentliche Problem
+
+Bei aller Wertschätzung für das Projekt lässt sich eines nicht übergehen: Der
+letzte Release **v0.12.1 stammt vom 14. September 2022**, der letzte Commit auf
+dem `master`-Branch vom **23. September 2024**. Beides ist öffentlich im
+Repository nachprüfbar.
+
+Für ein Werkzeug, das Phishing-Mails versendet, Landing Pages ausliefert und
+eingegebene Zugangsdaten entgegennimmt, ist das kein Randdetail. Eine solche
+Anwendung steht per Definition offen im Netz und verarbeitet genau die Daten,
+die ein Angreifer haben will. Ohne laufende Sicherheitsupdates verschiebt sich
+das Risiko von der simulierten auf die echte Bedrohung – und der Betrieb wird
+zu einer Zusage, die Sie selbst einlösen müssen.
+
+Wer Gophish heute einsetzt, sollte das bewusst tun: in einem abgeschotteten
+Netz, nur für die Dauer einer Kampagne, mit eigener Prüfung des Codes.
 
 ## Wo die Werkzeugklasse endet
 
@@ -64,14 +81,16 @@ stattgefunden haben. Kampagnenstatistiken allein sind kein Schulungsnachweis.
 | Lerninhalte | nein | Grundtrainings | volle Lernpfade |
 | Awareness-Score | nein | Basis-Reporting | Score je Team |
 | Automatische Pflichtschulungen | nein | nein | Enterprise |
-| SSO, SIEM-Export | nein | nein | Enterprise |
+| SAML Single Sign-On, SIEM-Export | nein | nein | Enterprise |
+| Letzter Release | 14.09.2022 | laufend | laufend |
 
-## Wann Sie bei Gophish bleiben sollten
+## Wann Gophish trotzdem passt
 
-Wenn Sie Penetration Tests fahren, gelegentliche Kampagnen für einen einzelnen
-Kundenauftrag brauchen oder maximale Kontrolle über jedes Detail des Versands
-wollen, ist Gophish weiterhin das passendere Werkzeug. Es ist schlanker, und
-Sie zahlen nichts.
+Für einen einzelnen Penetrationstest in einem abgeschotteten Netz, bei dem Sie
+die Umgebung danach wieder abbauen, bleibt Gophish ein brauchbares und
+kostenloses Werkzeug – vorausgesetzt, Sie kennen den Wartungsstand und richten
+den Betrieb danach ein.
 
-Der Wechsel lohnt sich, wenn aus dem gelegentlichen Test ein Programm wird, das
-jemand jedes Quartal belegen muss.
+Sobald daraus etwas Dauerhaftes wird – eine Installation, die stehen bleibt,
+ein Programm, das jemand jedes Quartal belegen muss – trägt ein Projekt ohne
+Release seit 2022 diese Last nicht mehr.
