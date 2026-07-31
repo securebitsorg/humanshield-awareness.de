@@ -16,7 +16,7 @@
     "@astrojs/sitemap": "^3.7.3",
     "@paddle/paddle-js": "^1.6.4",
     "@tailwindcss/vite": "^4.3.2",
-    "astro": "^7.1.0",
+    "astro": "^7.1.6",
     "mermaid": "^11.16.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
